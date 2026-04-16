@@ -20,3 +20,6 @@ data/
 
 # Qdrant files
 qdrant_storage/
+
+# BAML files
+baml_client/
