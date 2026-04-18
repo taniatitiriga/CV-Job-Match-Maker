@@ -98,9 +98,21 @@ client<llm> CustomOllama {
   provider openai-generic
   options {
     base_url "http://localhost:11434/v1"
-    model "granite4"
+    model "qwen3"
+    temperature 0.0
     default_role "user" // Most local models prefer the user role
     // No API key needed for local Ollama
+  }
+}
+
+client<llm> LlamaCpp {
+  provider openai-generic
+  options {
+    base_url "http://127.0.0.1:8082/v1"
+    model "NuExtract-2.0-2B-Q4_K_M"
+    temperature 0.0
+    default_role "user" // Most local models prefer the user role
+    // No API key needed for local llama.cpp server
   }
 }
 
