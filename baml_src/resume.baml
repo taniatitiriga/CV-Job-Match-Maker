@@ -17,7 +17,7 @@ class Position {
 function ExtractResume(resume: string) -> Resume {
   // Specify a client as provider/model-name
   // You can also use custom LLM params with a custom client name from clients.baml like "client CustomGPT5" or "client CustomSonnet4"
-  client "ollama/granite4" // Set OLLAMA_HOST to use this client.
+  client "CustomOllama" // Set OLLAMA_HOST to use this client.
   prompt #"
     Extract from this content:
     {{ resume }}
@@ -26,9 +26,18 @@ function ExtractResume(resume: string) -> Resume {
   "#
 }
 
+function ExtractResumeLlamaCpp(resume: string) -> Resume {
+  client "LlamaCpp"
+  prompt #"
+    Extract from this content:
+    {{ resume }}
+
+    {{ ctx.output_format }}
+  "#
+}
 // Test the function with a sample resume. Open the VSCode playground to run this.
 test vaibhav_resume {
-  functions [ExtractResume]
+  functions [ExtractResume, ExtractResumeLlamaCpp]
   args {
     resume #"
       Vaibhav Gupta
