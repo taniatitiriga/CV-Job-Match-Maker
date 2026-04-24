@@ -37,7 +37,7 @@ function ExtractResumeLlamaCpp(resume: string) -> Resume {
 }
 
 function ExtractResumeLlamaCppPC(resume: string) -> Resume {
-  client "LlamaCppPC"
+  client "LlamaCppPCphi4Mini"
   prompt #"
     Extract from this content:
     {{ resume }}
