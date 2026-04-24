@@ -116,6 +116,15 @@ client<llm> LlamaCpp {
   }
 }
 
+client<llm> LlamaCppPC {
+  provider openai-generic
+  options {
+    base_url "http://172.18.80.1:8080/v1"
+    model "gemma-4-E4B-it-Q4_K_M"
+    temperature 0.0
+  }
+}
+
 // // https://docs.boundaryml.com/docs/snippets/clients/round-robin
 // client<llm> CustomFast {
 //   provider round-robin

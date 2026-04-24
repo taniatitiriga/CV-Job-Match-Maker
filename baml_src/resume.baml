@@ -35,9 +35,19 @@ function ExtractResumeLlamaCpp(resume: string) -> Resume {
     {{ ctx.output_format }}
   "#
 }
+
+function ExtractResumeLlamaCppPC(resume: string) -> Resume {
+  client "LlamaCppPC"
+  prompt #"
+    Extract from this content:
+    {{ resume }}
+
+    {{ ctx.output_format }}
+  "#
+}
 // Test the function with a sample resume. Open the VSCode playground to run this.
 test vaibhav_resume {
-  functions [ExtractResume, ExtractResumeLlamaCpp]
+  functions [ExtractResume, ExtractResumeLlamaCpp, ExtractResumeLlamaCppPC]
   args {
     resume #"
       Vaibhav Gupta
