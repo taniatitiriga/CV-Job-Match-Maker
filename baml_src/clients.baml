@@ -116,11 +116,14 @@ client<llm> LlamaCpp {
   }
 }
 
+// phi-4-mini-instruct-Q5_K_M
+// gemma-4-E4B-it-Q4_K_M
+// qwen3.5-4B-Q5_K_M
 client<llm> LlamaCppPC {
   provider openai-generic
   options {
     base_url "http://172.18.80.1:8080/v1"
-    model "gemma-4-E4B-it-Q4_K_M"
+    model "phi-4-mini-instruct-Q5_K_M"
     temperature 0.0
   }
 }

@@ -1,12 +1,12 @@
 // Defining a data model.
 class Resume {
-  name string
+  title string
   positions Position[]
   skills string[]
 }
 
 class Position {
-  title string
+  job_title string
   company string
   start_date string
   end_date string
