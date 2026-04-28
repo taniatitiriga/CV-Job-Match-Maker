@@ -5,6 +5,7 @@
 - Python version: 3.12+ (see pyproject.toml)
 - Local LLM servers: Run `./run-llama-servers.sh` to start embedding and inference servers
 - Qdrant: Uses local storage at ./qdrant_storage
+- Opencode: Configuration in .opencode/package.json with available skills
 
 ## Key Directories
 - `baml_src/`: BAML schema files defining data structures for LLM extraction
@@ -16,7 +17,7 @@
 
 ## BAML Workflow
 1. Edit `.baml` files in `baml_src/` to modify LLM prompts/extraction schemas
-2. Regenerate client: `uv run baml-cli generate` (or let editor handle it)
+2. Regenerate client: Run `uv run baml-cli generate` in baml_src/
 3. Import generated client from `baml_client` in Python code
 
 ## Testing & Execution
@@ -28,3 +29,6 @@
 - Ollama models: mxbai-embed-large (embeddings) and phi-4-mini (inference)
 - Models stored in `../models/` relative to llama-server execution
 - Servers run on ports 8080 (LLM) and 8081 (embeddings)
+
+## Opencode Skills
+- `ask-questions-if-underspecified`: Ask the minimum set of clarifying questions needed to avoid wrong work.
