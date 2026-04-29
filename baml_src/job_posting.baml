@@ -37,7 +37,7 @@ class JobPosting {
 }
 
 function ExtractJobPostingLlamaCppPC(job_posting: string) -> JobPosting {
-  client "LlamaCppPCphi4Mini"
+  client "LlamaCppPCnemotron3Nano" // LlamaCppPCnemotron3Nano LlamaCppPCphi4Mini 
   prompt #"
     Extract from this content:
     {{ job_posting }}

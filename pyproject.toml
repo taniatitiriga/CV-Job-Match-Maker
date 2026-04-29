@@ -16,7 +16,7 @@ dependencies = [
     "scikit-learn>=1.5.2",
     "qdrant-client>=1.17.1",
     "ollama>=0.6.1",
-    "baml-py>=0.221.0",
+    "baml-py==0.222.0",
     "ipykernel>=7.2.0",
     "jupyter>=1.1.1",
 ]

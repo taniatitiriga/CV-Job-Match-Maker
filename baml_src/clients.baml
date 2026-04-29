@@ -119,12 +119,30 @@ client<llm> LlamaCpp {
 // phi-4-mini-instruct-Q5_K_M
 // gemma-4-E4B-it-Q4_K_M
 // qwen3.5-4B-Q5_K_M
+
+client<llm> LlamaCppPCembedding {
+  provider openai-generic
+  options {
+    base_url "http://172.18.80.1:8081/v1/embeddings"
+    model "mxbai-embed-large-v1-f16"
+  }
+}
+
 client<llm> LlamaCppPCphi4Mini {
   provider openai-generic
   options {
     base_url "http://172.18.80.1:8080/v1"
     model "phi-4-mini-instruct-Q5_K_M"
     temperature 0.0
+  }
+}
+
+client<llm> LlamaCppPCnemotron3Nano {
+  provider openai-generic
+  options {
+    base_url "http://172.18.80.1:8080/v1"
+    model "NVIDIA-Nemotron3-Nano-4B-Q4_K_M"
+    temperature 0.4
   }
 }
 
