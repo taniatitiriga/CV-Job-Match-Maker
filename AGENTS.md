@@ -32,3 +32,6 @@
 
 ## Opencode Skills
 - `ask-questions-if-underspecified`: Ask the minimum set of clarifying questions needed to avoid wrong work.
+- `code-review-assistant`: Review code for best practices, potential bugs, and improvements
+- `documentation-generator`: Generate comprehensive documentation for code, APIs, and projects
+- `testing-assistant`: Assist with writing, running, and maintaining tests for code
