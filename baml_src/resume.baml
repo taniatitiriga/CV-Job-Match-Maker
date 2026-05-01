@@ -45,6 +45,19 @@ function ExtractResumeLlamaCppPC(resume: string) -> Resume {
     {{ ctx.output_format }}
   "#
 }
+
+function InferResumeDomain(resume_summary: string) -> JobPostingDomain {
+  client "LlamaCppPCnemotron3Nano"
+  prompt #"
+    Classify the following resume into exactly one of the predefined professional domains.
+    Pick the single best match based on the candidate's title, positions and skills.
+
+    Resume:
+    {{ resume_summary }}
+
+    {{ ctx.output_format }}
+  "#
+}
 // Test the function with a sample resume. Open the VSCode playground to run this.
 test vaibhav_resume {
   functions [ExtractResume, ExtractResumeLlamaCpp, ExtractResumeLlamaCppPC]
