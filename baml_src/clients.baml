@@ -140,7 +140,7 @@ client<llm> LlamaCppPCphi4Mini {
 client<llm> LlamaCppPCnemotron3Nano {
   provider openai-generic
   options {
-    base_url "http://localhost:8080/v1"
+    base_url "http://172.18.80.1:8080/v1"
     model "NVIDIA-Nemotron3-Nano-4B-Q4_K_M"
     temperature 0.4
   }
