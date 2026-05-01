@@ -5,6 +5,10 @@ PDF in the upload zone, optionally tweaks the pooling metric and the number of
 results to return, and submits. The PDF is parsed via BAML, the structured
 output is embedded with the same chunking/pooling pipeline used for indexing,
 and Qdrant is queried with kind + domain + pooling_method filters.
+
+Matching is cross-kind by design:
+- uploaded resume -> match against indexed job postings
+- uploaded job posting -> match against indexed resumes
 """
 
 from __future__ import annotations
@@ -47,7 +51,7 @@ def layout() -> Any:
                 "Upload a CV/resume or a job posting (PDF). "
                 "We will parse it, infer its domain via the local LLM, "
                 "embed it with the same pipeline used for the indexed dataset, "
-                "and show the most similar documents of the same kind.",
+                "and show the most similar documents of the opposite kind.",
                 className="text-muted",
             ),
             dbc.Row(
@@ -57,7 +61,7 @@ def layout() -> Any:
                             [
                                 html.Div("Upload Resume", className="fw-bold fs-5"),
                                 html.Div(
-                                    "Match against indexed CVs",
+                                    "Find matching job postings",
                                     className="small",
                                 ),
                             ],
@@ -75,7 +79,7 @@ def layout() -> Any:
                                     "Upload Job Posting", className="fw-bold fs-5"
                                 ),
                                 html.Div(
-                                    "Match against indexed job postings",
+                                    "Find matching resumes",
                                     className="small",
                                 ),
                             ],
@@ -185,6 +189,10 @@ def _kind_indicator(kind: str | None):
         [
             html.Span("Selected kind: "),
             html.Strong(label),
+            html.Span("  -> will match against "),
+            html.Strong(
+                "Job Postings" if kind == KIND_RESUME else "Resumes"
+            ),
         ],
         color="info",
     )
@@ -193,7 +201,7 @@ def _kind_indicator(kind: str | None):
 def _format_results(
     hits: list[dict],
     *,
-    kind: str,
+    target_kind: str,
     domain: str,
     pooling: str,
 ) -> Any:
@@ -201,7 +209,7 @@ def _format_results(
         return dbc.Alert(
             (
                 "No matching documents found in collection for kind="
-                f"{kind!r}, domain={domain!r}, pooling={pooling!r}. "
+                f"{target_kind!r}, domain={domain!r}, pooling={pooling!r}. "
                 "Make sure the dataset has been indexed for this domain."
             ),
             color="warning",
@@ -256,7 +264,7 @@ def _format_results(
                 [
                     html.Span("Compared against "),
                     html.Strong(
-                        "CVs" if kind == KIND_RESUME else "job postings"
+                        "CVs" if target_kind == KIND_RESUME else "job postings"
                     ),
                     html.Span(" in domain "),
                     html.Strong(domain),
@@ -406,10 +414,14 @@ def register_callbacks(app: dash.Dash) -> None:
                 no_update,
             )
 
+        target_kind = (
+            KIND_JOB_POSTING if kind == KIND_RESUME else KIND_RESUME
+        )
+
         try:
             hits = search_similar_documents(
                 query_vector=pooled_vectors[pooling_method],
-                kind=kind,
+                kind=target_kind,
                 domain=domain,
                 pooling_method=pooling_method,
                 top_k=int(top_k or 1),
@@ -443,7 +455,8 @@ def register_callbacks(app: dash.Dash) -> None:
         ]
 
         query_doc = {
-            "kind": kind,
+            "uploaded_kind": kind,
+            "target_kind": target_kind,
             "domain": domain,
             "pooling_method": pooling_method,
             "filename": filename,
@@ -453,7 +466,7 @@ def register_callbacks(app: dash.Dash) -> None:
         return (
             _format_results(
                 results,
-                kind=kind,
+                target_kind=target_kind,
                 domain=domain,
                 pooling=pooling_method,
             ),
