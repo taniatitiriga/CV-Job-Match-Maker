@@ -22,7 +22,10 @@ from .pages import document_detail, upload
 app = dash.Dash(
     __name__,
     title="CV ↔ Job Match Maker",
-    external_stylesheets=[dbc.themes.FLATLY],
+    external_stylesheets=[
+        "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+        dbc.themes.BOOTSTRAP,
+    ],
     suppress_callback_exceptions=True,
 )
 server = app.server
@@ -35,9 +38,9 @@ def _navbar() -> dbc.NavbarSimple:
         ],
         brand="CV ↔ Job Match Maker",
         brand_href="/",
-        color="primary",
+        color="dark",
         dark=True,
-        className="mb-4",
+        className="mb-4 cjm-navbar shadow-sm",
     )
 
 
@@ -49,9 +52,10 @@ app.layout = dbc.Container(
         # Stores the most recent uploaded document's structured payload.
         dcc.Store(id="query-doc-store", storage_type="memory"),
         _navbar(),
-        html.Div(id="page-content"),
+        html.Div(id="page-content", className="cjm-main"),
     ],
     fluid=True,
+    className="px-3 px-md-4",
 )
 
 

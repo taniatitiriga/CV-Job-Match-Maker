@@ -1,0 +1,291 @@
+/* CV ↔ Job Match — app shell and page styling */
+
+:root {
+  --cjm-bg: #f1f5f9;
+  --cjm-surface: #ffffff;
+  --cjm-elevated: #f8fafc;
+  --cjm-text: #0f172a;
+  --cjm-muted: #64748b;
+  --cjm-border: #e2e8f0;
+  --cjm-accent: #2563eb;
+  --cjm-accent-soft: #eff6ff;
+  --cjm-success: #059669;
+  --cjm-radius: 12px;
+  --cjm-radius-sm: 8px;
+  --cjm-shadow: 0 1px 2px rgb(15 23 42 / 6%),
+    0 4px 16px rgb(15 23 42 / 6%);
+  --cjm-shadow-lg: 0 4px 6px rgb(15 23 42 / 5%),
+    0 12px 32px rgb(15 23 42 / 8%);
+}
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  background-color: var(--cjm-bg);
+  color: var(--cjm-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+.pre {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Navbar */
+.cjm-navbar.navbar {
+  background: linear-gradient(105deg, #0f172a 0%, #1e3a5f 55%, #1e40af 100%) !important;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  border: none;
+  box-shadow: var(--cjm-shadow-lg);
+}
+
+.cjm-navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 1.125rem;
+}
+
+.cjm-navbar .nav-link {
+  font-weight: 500;
+  border-radius: var(--cjm-radius-sm);
+  padding: 0.4rem 0.85rem !important;
+}
+
+.cjm-navbar .nav-link.active {
+  background: rgb(255 255 255 / 12%);
+}
+
+/* Main column */
+.cjm-main {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 3rem;
+}
+
+/* Hero / page title */
+.cjm-hero {
+  margin-bottom: 2rem;
+}
+
+.cjm-hero-title {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(1.5rem, 4vw, 1.85rem);
+  color: var(--cjm-text);
+  margin-bottom: 0.5rem;
+}
+
+.cjm-hero-lead {
+  color: var(--cjm-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 0;
+}
+
+/* Kind selection cards */
+.cjm-kind-card .btn {
+  border-radius: var(--cjm-radius);
+  border-width: 2px;
+  padding: 1.25rem 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.15s ease;
+  text-align: left;
+}
+
+.cjm-kind-card .btn-outline-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--cjm-shadow);
+}
+
+.cjm-kind-card .btn-primary {
+  background: var(--cjm-accent-soft) !important;
+  border-color: var(--cjm-accent) !important;
+  color: var(--cjm-accent) !important;
+  box-shadow: var(--cjm-shadow);
+}
+
+/* Upload zone */
+.cjm-upload-zone {
+  width: 100%;
+  min-height: 140px;
+  line-height: 1.5 !important;
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--cjm-border);
+  border-radius: var(--cjm-radius);
+  background: var(--cjm-elevated);
+  color: var(--cjm-muted);
+  transition: border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.cjm-upload-zone:hover {
+  border-color: var(--cjm-accent);
+  background: var(--cjm-surface);
+  box-shadow: var(--cjm-shadow);
+}
+
+.cjm-upload-zone a {
+  color: var(--cjm-accent);
+  text-decoration: none;
+}
+
+.cjm-upload-zone a:hover {
+  text-decoration: underline;
+}
+
+.cjm-upload-link {
+  color: var(--cjm-accent);
+}
+
+/* Alerts */
+.cjm-step-hint.alert-light {
+  background: var(--cjm-surface) !important;
+  border: 1px solid var(--cjm-border) !important;
+  color: var(--cjm-text) !important;
+}
+
+.cjm-kind-selected.alert-primary {
+  background: var(--cjm-accent-soft) !important;
+  border: none !important;
+  color: var(--cjm-text) !important;
+}
+
+.cjm-results-banner.alert-success {
+  border: none !important;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  color: #065f46 !important;
+}
+
+/* Settings panel */
+.cjm-settings .form-label,
+.cjm-settings label.fw-bold {
+  color: var(--cjm-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+/* Primary action */
+.cjm-search-btn .btn-success {
+  background: linear-gradient(180deg, var(--cjm-success) 0%, #047857 100%);
+  border: none;
+  font-weight: 600;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-radius: var(--cjm-radius-sm);
+  box-shadow: 0 2px 8px rgb(5 150 105 / 35%);
+}
+
+.cjm-search-btn .btn-success:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+/* Results */
+.cjm-results-wrap .alert {
+  border: none;
+  border-radius: var(--cjm-radius-sm);
+  box-shadow: var(--cjm-shadow);
+}
+
+.cjm-results-table {
+  border-radius: var(--cjm-radius);
+  overflow: hidden;
+  box-shadow: var(--cjm-shadow);
+  border: 1px solid var(--cjm-border);
+  background: var(--cjm-surface);
+}
+
+.cjm-results-table table {
+  margin-bottom: 0;
+}
+
+.cjm-results-table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--cjm-muted);
+  border-bottom-width: 1px;
+  background: var(--cjm-elevated);
+}
+
+.cjm-results-table tbody td {
+  vertical-align: middle;
+}
+
+/* Detail page */
+.cjm-back-row {
+  margin-bottom: 1rem;
+}
+
+.cjm-back-row .btn-outline-secondary {
+  border-radius: var(--cjm-radius-sm);
+  font-weight: 500;
+}
+
+.cjm-meta-card {
+  border: 1px solid var(--cjm-border);
+  border-radius: var(--cjm-radius);
+  box-shadow: var(--cjm-shadow);
+  overflow: hidden;
+}
+
+.cjm-meta-card .card-body {
+  background: linear-gradient(180deg, var(--cjm-surface) 0%, var(--cjm-elevated) 100%);
+}
+
+.cjm-doc-shell {
+  border: 1px solid var(--cjm-border);
+  border-radius: var(--cjm-radius);
+  padding: 1.75rem 1.5rem;
+  background: var(--cjm-surface);
+  box-shadow: var(--cjm-shadow);
+  margin-top: 1.25rem;
+}
+
+.cjm-doc-shell h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.cjm-doc-shell h5 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cjm-muted);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--cjm-border);
+}
+
+.cjm-doc-shell h5:first-of-type {
+  margin-top: 0;
+}
+
+.cjm-doc-shell .card {
+  border: 1px solid var(--cjm-border);
+  border-radius: var(--cjm-radius-sm);
+  box-shadow: none;
+}
+
+.cjm-badge-skill {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+  border-radius: 6px;
+}
+
+/* Dash loading overlay polish */
+._dash-loading-callback {
+  min-height: 120px;
+}

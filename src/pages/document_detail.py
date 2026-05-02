@@ -21,12 +21,17 @@ def layout(index: int) -> Any:
         [
             dcc.Store(id="detail-index-store", data=index),
             html.Div(
-                dcc.Link("← Back to results", href="/", className="btn btn-link"),
-                className="mb-2",
+                dcc.Link(
+                    "Back to match",
+                    href="/",
+                    className="btn btn-outline-secondary btn-sm px-3",
+                ),
+                className="cjm-back-row",
             ),
             html.Div(id="detail-content"),
         ],
         fluid=True,
+        className="px-0",
     )
 
 
@@ -37,17 +42,31 @@ def _render_resume(payload: dict) -> Any:
 
     return html.Div(
         [
-            html.H3(title),
-            html.H5("Skills", className="mt-3"),
             html.Div(
                 [
-                    dbc.Badge(s, color="secondary", className="me-1 mb-1")
+                    html.H3(title, className="mb-0"),
+                    html.Div(
+                        "Resume",
+                        className="badge bg-primary bg-opacity-10 text-primary mt-2",
+                        style={"fontWeight": "600", "fontSize": "0.75rem"},
+                    ),
+                ],
+                className="d-flex flex-wrap align-items-center gap-2 mb-1",
+            ),
+            html.H5("Skills"),
+            html.Div(
+                [
+                    dbc.Badge(
+                        s,
+                        color="light",
+                        className="me-1 mb-1 cjm-badge-skill border text-dark",
+                    )
                     for s in skills
                 ]
                 if skills
-                else html.P("—", className="text-muted"),
+                else html.P("—", className="text-muted mb-0"),
             ),
-            html.H5("Positions", className="mt-4"),
+            html.H5("Positions"),
             html.Div(
                 [
                     dbc.Card(
@@ -55,7 +74,7 @@ def _render_resume(payload: dict) -> Any:
                             [
                                 html.H6(
                                     pos.get("job_title", "Position"),
-                                    className="card-title",
+                                    className="card-title fw-semibold mb-2",
                                 ),
                                 html.Div(
                                     [
@@ -66,13 +85,14 @@ def _render_resume(payload: dict) -> Any:
                                             className="text-muted",
                                         ),
                                     ],
-                                    className="mb-2",
+                                    className="mb-2 small",
                                 ),
                                 html.Ul(
                                     [
                                         html.Li(d)
                                         for d in (pos.get("description") or [])
-                                    ]
+                                    ],
+                                    className="mb-0 ps-3",
                                 ),
                             ]
                         ),
@@ -81,38 +101,60 @@ def _render_resume(payload: dict) -> Any:
                     for pos in positions
                 ]
             ),
-        ]
+        ],
+        className="cjm-doc-shell",
     )
 
 
 def _render_job_posting(payload: dict) -> Any:
     return html.Div(
         [
-            html.H3(payload.get("job_title", "Job Posting")),
+            html.Div(
+                [
+                    html.H3(
+                        payload.get("job_title", "Job Posting"),
+                        className="mb-0",
+                    ),
+                    html.Div(
+                        "Job posting",
+                        className="badge bg-primary bg-opacity-10 text-primary mt-2",
+                        style={"fontWeight": "600", "fontSize": "0.75rem"},
+                    ),
+                ],
+                className="d-flex flex-wrap align-items-center gap-2 mb-3",
+            ),
             html.Div(
                 [
                     html.Strong(payload.get("company", "")),
                     html.Span(
-                        f" · domain {payload.get('domain', '')}",
+                        f" · {payload.get('domain', '')}",
                         className="text-muted",
                     ),
                 ],
-                className="mb-3",
+                className="small text-body mb-0 pb-3",
+                style={"borderBottom": "1px solid var(--cjm-border)"},
             ),
             html.H5("Description"),
-            html.P(payload.get("description", "—")),
-            html.H5("Responsibilities", className="mt-3"),
-            html.Ul(
-                [html.Li(r) for r in (payload.get("responsibilities") or [])]
+            html.P(
+                payload.get("description", "—"),
+                className="mb-0",
+                style={"lineHeight": "1.65"},
             ),
-            html.H5("Required qualifications", className="mt-3"),
+            html.H5("Responsibilities"),
+            html.Ul(
+                [html.Li(r) for r in (payload.get("responsibilities") or [])],
+                className="mb-0",
+            ),
+            html.H5("Required qualifications"),
             html.Ul(
                 [
                     html.Li(q)
                     for q in (payload.get("required_qualifications") or [])
-                ]
+                ],
+                className="mb-0",
             ),
-        ]
+        ],
+        className="cjm-doc-shell",
     )
 
 
@@ -124,7 +166,14 @@ def _render_payload(kind: str, payload: dict) -> Any:
     # Unknown kind → show pretty JSON.
     import json as _json
 
-    return html.Pre(_json.dumps(payload, indent=2, ensure_ascii=False))
+    return html.Div(
+        html.Pre(
+            _json.dumps(payload, indent=2, ensure_ascii=False),
+            className="mb-0 small",
+            style={"whiteSpace": "pre-wrap"},
+        ),
+        className="cjm-doc-shell",
+    )
 
 
 def _match_summary(match: dict) -> Any:
@@ -132,33 +181,101 @@ def _match_summary(match: dict) -> Any:
     return dbc.Card(
         dbc.CardBody(
             [
-                html.H5(match.get("document_key", ""), className="mb-2"),
                 html.Div(
                     [
-                        html.Strong("Score: "),
-                        html.Span(f"{match.get('score', 0):.4f}"),
-                        html.Span("   "),
-                        html.Strong("Kind: "),
-                        html.Span(payload.get("kind", "")),
-                        html.Span("   "),
-                        html.Strong("Domain: "),
-                        html.Span(payload.get("domain", "")),
-                        html.Span("   "),
-                        html.Strong("Pooling: "),
-                        html.Code(payload.get("pooling_method", "")),
+                        html.H5(
+                            match.get("document_key", ""),
+                            className="mb-1 fw-semibold",
+                        ),
+                        html.Div(
+                            [
+                                html.Span(
+                                    f"{match.get('score', 0):.4f}",
+                                    className="fw-semibold text-primary",
+                                ),
+                                html.Span(
+                                    " similarity",
+                                    className="text-muted small",
+                                ),
+                            ],
+                            className="mb-3",
+                        ),
+                    ]
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Div(
+                                    "Kind",
+                                    className="small text-muted text-uppercase fw-semibold",
+                                    style={"fontSize": "0.7rem", "letterSpacing": "0.04em"},
+                                ),
+                                html.Div(
+                                    payload.get("kind", "—"),
+                                    className="small",
+                                ),
+                            ],
+                            md=3,
+                            sm=6,
+                            className="mb-3",
+                        ),
+                        dbc.Col(
+                            [
+                                html.Div(
+                                    "Domain",
+                                    className="small text-muted text-uppercase fw-semibold",
+                                    style={"fontSize": "0.7rem", "letterSpacing": "0.04em"},
+                                ),
+                                html.Div(
+                                    payload.get("domain", "—"),
+                                    className="small",
+                                ),
+                            ],
+                            md=3,
+                            sm=6,
+                            className="mb-3",
+                        ),
+                        dbc.Col(
+                            [
+                                html.Div(
+                                    "Pooling",
+                                    className="small text-muted text-uppercase fw-semibold",
+                                    style={"fontSize": "0.7rem", "letterSpacing": "0.04em"},
+                                ),
+                                html.Div(
+                                    html.Code(
+                                        payload.get("pooling_method", ""),
+                                        className="small",
+                                    ),
+                                    className="small",
+                                ),
+                            ],
+                            md=3,
+                            sm=6,
+                            className="mb-3",
+                        ),
                     ],
-                    className="text-muted small mb-1",
+                    className="g-0",
                 ),
                 html.Div(
                     [
-                        html.Strong("Source file: "),
-                        html.Code(match.get("source_path", "")),
+                        html.Div(
+                            "Source file",
+                            className="small text-muted text-uppercase fw-semibold",
+                            style={"fontSize": "0.7rem", "letterSpacing": "0.04em"},
+                        ),
+                        html.Code(
+                            match.get("source_path", ""),
+                            className="small text-break d-block mt-1",
+                        ),
                     ],
-                    className="text-muted small",
+                    className="pt-2",
+                    style={"borderTop": "1px solid var(--cjm-border)"},
                 ),
             ]
         ),
-        className="mb-3",
+        className="mb-3 cjm-meta-card",
     )
 
 
@@ -216,5 +333,6 @@ def register_callbacks(app: dash.Dash) -> None:
             [
                 _match_summary(match),
                 _render_payload(kind, doc),
-            ]
+            ],
+            className="cjm-detail-body",
         )

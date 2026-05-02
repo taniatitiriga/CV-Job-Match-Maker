@@ -17,14 +17,26 @@ cv-job-match/
 │   └── generators.baml       # Additional utility functions
 ├── baml_client/              # Generated Python client for BAML (auto-generated)
 ├── data/                     # Dataset files
-│   ├── cv-dataset/           # CV/resume documents (organized by category)
-│   └── job_postings/         # Job posting documents
-├── notebooks/                # Jupyter notebooks for experimentation and testing
-│   ├── ollama_connection.ipynb     # Test LLM connections
-│   ├── qdrant_quickstart.ipynb     # Test Qdrant vector operations
-│   ├── preprocess_datasets.ipynb   # Process and prepare datasets
-│   └── baml_test_retrieval.ipynb   # Test BAML extraction and retrieval
+│   ├── cv-dataset/                           # Original CV/resume documents (organized by domain)
+│   ├── job-postings/                         # Original job postings CSV file
+│   ├── cv-dataset-processed/                 # Processed CV/resume JSON files (organized by domain)
+│   └── job-postings-processed/               # Processed job posting JSON files (organized by domain)
+├── notebooks/                # Jupyter notebooks for data processing, testing, and exploration
+│   ├── preprocess_datasets.ipynb             # Main notebook for preprocessing CV and job posting datasets
+│   ├── baml_test_retrieval.ipynb             # Tests BAML extraction and retrieval functionality
+│   ├── embed_processed_json_to_qdrant.ipynb  # Processes JSON data and stores embeddings in Qdrant
+│   ├── ollama_connection.ipynb               # Tests connection to Ollama LLM servers
+│   └── qdrant_quickstart.ipynb               # Quickstart guide for Qdrant vector operations
 ├── qdrant_storage/           # Local Qdrant vector database storage
+├── src/                      # Source code for the application
+│   ├── app.py                  # Entry point for the Dash application
+│   ├── config.py               # Configuration settings
+│   ├── embeddings.py           # Embedding generation utilities
+│   ├── extraction.py           # Data extraction logic using BAML
+│   └── pages/                  # Dash page components
+│       ├── __init__.py
+│       ├── upload.py
+│       └── document_detail.py
 ├── pyproject.toml            # Project dependencies and configuration
 ├── uv.lock                   # Locked dependencies for reproducible installs
 ├── run-llama-servers.sh      # Script to start local LLM servers
@@ -72,9 +84,9 @@ cv-job-match/
 ### Data Processing
 
 1. Process CV datasets:
-   ```bash
-   uv run jupyter notebook notebooks/preprocess_datasets.ipynb
-   ```
+    ```bash
+    uv run jupyter notebook notebooks/preprocess_datasets.ipynb
+    ```
 
 2. Process job postings dataset similarly
 
@@ -86,7 +98,15 @@ cv-job-match/
 
 ### Running the Application
 
-The system can be used programmatically through the BAML client or extended with additional processing scripts.
+To start the Dash web application:
+
+```bash
+uv run python -m src.app
+```
+
+The application will be available at http://localhost:8050
+
+The system can also be used programmatically through the BAML client or extended with additional processing scripts.
 
 ## Configuration
 

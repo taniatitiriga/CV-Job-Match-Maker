@@ -46,155 +46,197 @@ def layout() -> Any:
     return dbc.Container(
         [
             dcc.Store(id="upload-kind-store", storage_type="memory"),
-            html.H2("Find similar documents", className="mb-3"),
-            html.P(
-                "Upload a CV/resume or a job posting (PDF). "
-                "We will parse it, infer its domain via the local LLM, "
-                "embed it with the same pipeline used for the indexed dataset, "
-                "and show the most similar documents of the opposite kind.",
-                className="text-muted",
+            html.Div(
+                [
+                    html.H1(
+                        "Match CVs and job postings",
+                        className="cjm-hero-title",
+                    ),
+                    html.P(
+                        "Upload a resume or a job posting as PDF. We parse it with "
+                        "your local LLM, embed it like the indexed corpus, and "
+                        "surface the closest documents of the opposite type.",
+                        className="cjm-hero-lead",
+                    ),
+                ],
+                className="cjm-hero",
             ),
             dbc.Row(
                 [
                     dbc.Col(
                         dbc.Button(
                             [
-                                html.Div("Upload Resume", className="fw-bold fs-5"),
                                 html.Div(
-                                    "Find matching job postings",
-                                    className="small",
+                                    "Resume",
+                                    className="fw-semibold fs-5 mb-1",
+                                ),
+                                html.Div(
+                                    "Match to job postings",
+                                    className="small text-muted",
                                 ),
                             ],
                             id="kind-resume-btn",
                             color="primary",
                             outline=True,
-                            className="w-100 py-4",
+                            className="w-100",
                         ),
                         md=6,
+                        className="cjm-kind-card mb-3 mb-md-0",
                     ),
                     dbc.Col(
                         dbc.Button(
                             [
                                 html.Div(
-                                    "Upload Job Posting", className="fw-bold fs-5"
+                                    "Job posting",
+                                    className="fw-semibold fs-5 mb-1",
                                 ),
                                 html.Div(
-                                    "Find matching resumes",
-                                    className="small",
+                                    "Match to resumes",
+                                    className="small text-muted",
                                 ),
                             ],
                             id="kind-job-btn",
                             color="primary",
                             outline=True,
-                            className="w-100 py-4",
+                            className="w-100",
                         ),
                         md=6,
+                        className="cjm-kind-card",
                     ),
                 ],
-                className="mb-4",
+                className="mb-3 g-md-3",
             ),
             html.Div(id="kind-indicator", className="mb-3"),
             dcc.Upload(
                 id="pdf-upload",
                 children=html.Div(
                     [
-                        "Drag and drop or ",
-                        html.A("select a PDF", className="fw-bold"),
-                    ]
+                        "Drop a PDF here or ",
+                        html.Span("browse", className="fw-semibold cjm-upload-link"),
+                    ],
+                    className="text-center",
                 ),
-                style={
-                    "width": "100%",
-                    "minHeight": "120px",
-                    "lineHeight": "120px",
-                    "borderWidth": "1px",
-                    "borderStyle": "dashed",
-                    "borderRadius": "8px",
-                    "textAlign": "center",
-                    "background": "#f8f9fa",
-                },
+                className="cjm-upload-zone",
                 multiple=False,
                 accept="application/pdf",
             ),
             html.Div(id="upload-filename", className="text-muted small mt-2"),
-            dbc.Row(
-                [
-                    dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    dbc.Row(
                         [
-                            html.Label("Pooling metric", className="fw-bold"),
-                            dcc.Dropdown(
-                                id="pooling-method",
-                                options=[
-                                    {
-                                        "label": POOLING_METHOD_LABELS.get(m, m),
-                                        "value": m,
-                                    }
-                                    for m in POOLING_METHODS
+                            dbc.Col(
+                                [
+                                    html.Label(
+                                        "Pooling metric",
+                                        className="fw-bold",
+                                    ),
+                                    dcc.Dropdown(
+                                        id="pooling-method",
+                                        options=[
+                                            {
+                                                "label": POOLING_METHOD_LABELS.get(
+                                                    m, m
+                                                ),
+                                                "value": m,
+                                            }
+                                            for m in POOLING_METHODS
+                                        ],
+                                        value=DEFAULT_POOLING_METHOD,
+                                        clearable=False,
+                                    ),
                                 ],
-                                value=DEFAULT_POOLING_METHOD,
-                                clearable=False,
+                                md=8,
+                            ),
+                            dbc.Col(
+                                [
+                                    html.Label(
+                                        "Number of results",
+                                        className="fw-bold",
+                                    ),
+                                    dcc.Slider(
+                                        id="top-k",
+                                        min=1,
+                                        max=MAX_TOP_K_RESULTS,
+                                        step=1,
+                                        value=DEFAULT_TOP_K_RESULTS,
+                                        marks={
+                                            i: str(i)
+                                            for i in range(
+                                                1, MAX_TOP_K_RESULTS + 1
+                                            )
+                                        },
+                                    ),
+                                ],
+                                md=4,
                             ),
                         ],
-                        md=8,
+                        className="g-3 cjm-settings align-items-end",
                     ),
-                    dbc.Col(
-                        [
-                            html.Label(
-                                "Number of results", className="fw-bold"
-                            ),
-                            dcc.Slider(
-                                id="top-k",
-                                min=1,
-                                max=MAX_TOP_K_RESULTS,
-                                step=1,
-                                value=DEFAULT_TOP_K_RESULTS,
-                                marks={
-                                    i: str(i)
-                                    for i in range(1, MAX_TOP_K_RESULTS + 1)
-                                },
-                            ),
-                        ],
-                        md=4,
-                    ),
-                ],
-                className="mt-4",
+                ),
+                className="mt-4 border-0 shadow-sm",
+                style={
+                    "borderRadius": "12px",
+                    "border": "1px solid var(--cjm-border)",
+                },
             ),
             html.Div(
                 dbc.Button(
-                    "Find similar",
+                    "Find similar documents",
                     id="search-btn",
                     color="success",
                     size="lg",
                     disabled=True,
                 ),
-                className="d-grid gap-2 mt-4",
+                className="d-grid gap-2 mt-4 cjm-search-btn",
             ),
             dcc.Loading(
                 id="search-loading",
                 type="default",
-                children=html.Div(id="search-output", className="mt-4"),
+                color="var(--cjm-accent)",
+                children=html.Div(
+                    id="search-output",
+                    className="mt-4 cjm-results-wrap",
+                ),
             ),
         ],
         fluid=True,
+        className="px-0",
     )
 
 
 def _kind_indicator(kind: str | None):
     if not kind:
         return dbc.Alert(
-            "Choose what type of document you want to upload.",
-            color="secondary",
+            [
+                html.Strong("Step 1 · ", className="me-1"),
+                "Select whether you are uploading a resume or a job posting.",
+            ],
+            color="light",
+            className="cjm-step-hint mb-0",
         )
-    label = "Resume" if kind == KIND_RESUME else "Job Posting"
+    label = "Resume" if kind == KIND_RESUME else "Job posting"
     return dbc.Alert(
         [
-            html.Span("Selected kind: "),
+            html.Span(
+                "Matching ",
+                className="text-muted",
+            ),
             html.Strong(label),
-            html.Span("  -> will match against "),
+            html.Span(
+                " → ",
+                className="text-muted mx-1",
+            ),
             html.Strong(
-                "Job Postings" if kind == KIND_RESUME else "Resumes"
+                "job postings" if kind == KIND_RESUME else "resumes"
+            ),
+            html.Span(
+                " in the same inferred domain.",
+                className="text-muted ms-1",
             ),
         ],
-        color="info",
+        color="primary",
+        className="cjm-kind-selected mb-0",
     )
 
 
@@ -227,9 +269,9 @@ def _format_results(
                     html.Td(hit.get("json_filename", "")),
                     html.Td(
                         dcc.Link(
-                            "Inspect",
+                            "View",
                             href=f"/match/{i}",
-                            className="btn btn-sm btn-outline-primary",
+                            className="btn btn-sm btn-outline-primary px-3",
                         )
                     ),
                 ]
@@ -262,19 +304,19 @@ def _format_results(
         [
             dbc.Alert(
                 [
-                    html.Span("Compared against "),
+                    html.Span("Results · ", className="text-muted"),
                     html.Strong(
                         "CVs" if target_kind == KIND_RESUME else "job postings"
                     ),
-                    html.Span(" in domain "),
+                    html.Span(" in domain ", className="text-muted"),
                     html.Strong(domain),
-                    html.Span(" using metric "),
-                    html.Code(pooling),
-                    html.Span("."),
+                    html.Span(" · metric ", className="text-muted"),
+                    html.Code(pooling, className="ms-1"),
                 ],
                 color="success",
+                className="cjm-results-banner border-0",
             ),
-            table,
+            html.Div(table, className="cjm-results-table"),
         ]
     )
 
