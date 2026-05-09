@@ -50,3 +50,4 @@
 - `code-review-assistant`: Review code for best practices, potential bugs, and improvements
 - `documentation-generator`: Generate comprehensive documentation for code, APIs, and projects
 - `testing-assistant`: Assist with writing, running, and maintaining tests for code
+- `drawio-skill` (third-party): Draw.io diagrams from `.agents/skills/drawio-skill/`; attribution in `.agents/skills/drawio-skill/VENDOR_NOTICE.md`

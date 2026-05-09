@@ -6,6 +6,14 @@ A sophisticated CV to job matching system that uses LLMs and vector databases to
 
 This system extracts structured data from CVs/resumes and job postings using BAML and LLMs, stores them in a Qdrant vector database, and provides similarity matching to find the best job candidates for positions and vice versa.
 
+## System architecture
+
+![System architecture (Draw.io export)](docs/cv-job-match-maker-architecture.png)
+
+![System architecture (Excalidraw export)](docs/cv-job-match-maker-architecture.excalidraw.png)
+
+Editable sources: `docs/cv-job-match-maker-architecture.drawio` and `docs/cv-job-match-maker-architecture.excalidraw`.
+
 ## Project Structure
 
 ```
@@ -157,3 +165,7 @@ Core dependencies specified in `pyproject.toml`:
 - Streamlit: Potential web interface
 - Jupyter: Notebooks for experimentation
 - Ollama: Local LLM API client
+
+## Acknowledgments
+
+- **[drawio-skill](https://github.com/Agents365-ai/drawio-skill)** (MIT): Agent skill used for Draw.io diagrams. Files are vendored under `.agents/skills/drawio-skill/`; see [.agents/skills/drawio-skill/VENDOR_NOTICE.md](.agents/skills/drawio-skill/VENDOR_NOTICE.md) for upstream link, pinned commit, and license text.

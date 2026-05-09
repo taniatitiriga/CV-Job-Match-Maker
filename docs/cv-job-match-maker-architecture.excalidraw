@@ -1,0 +1,535 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "moyfgrcpuzvsn21p9yj",
+      "type": "text",
+      "x": 120,
+      "y": 0,
+      "strokeColor": "#1e1e1e",
+      "text": "CV ↔ Job Match Maker — System Architecture",
+      "fontSize": 24,
+      "createdAt": "2026-05-09T14:16:52.351Z",
+      "updatedAt": "2026-05-09T14:16:52.351Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpnzc423e3pg",
+      "type": "text",
+      "x": 120,
+      "y": 36,
+      "strokeColor": "#868e96",
+      "text": "(Excalidraw MCP canvas: open http://localhost:3000 to view live)",
+      "fontSize": 14,
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "zone-client",
+      "type": "rectangle",
+      "x": 40,
+      "y": 80,
+      "width": 1120,
+      "height": 200,
+      "backgroundColor": "#e9ecef",
+      "strokeColor": "#868e96",
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 35,
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcptgbk15sb449",
+      "type": "text",
+      "x": 60,
+      "y": 92,
+      "strokeColor": "#868e96",
+      "text": "Presentation",
+      "fontSize": 14,
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "user",
+      "type": "ellipse",
+      "x": 100,
+      "y": 140,
+      "width": 200,
+      "height": 100,
+      "backgroundColor": "#a5d8ff",
+      "strokeColor": "#1971c2",
+      "roughness": 0,
+      "label": {
+        "text": "Browser\n(User)"
+      },
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "dash-app",
+      "type": "rectangle",
+      "x": 460,
+      "y": 125,
+      "width": 300,
+      "height": 130,
+      "backgroundColor": "#a5d8ff",
+      "strokeColor": "#1971c2",
+      "roughness": 0,
+      "label": {
+        "text": "Dash app\nsrc/app.py · :8050\nMatch + document detail"
+      },
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "zone-app",
+      "type": "rectangle",
+      "x": 40,
+      "y": 320,
+      "width": 1120,
+      "height": 280,
+      "backgroundColor": "#eebefa",
+      "strokeColor": "#9c36b5",
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 28,
+      "createdAt": "2026-05-09T14:16:52.352Z",
+      "updatedAt": "2026-05-09T14:16:52.352Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp5zehx9e8tal",
+      "type": "text",
+      "x": 60,
+      "y": 332,
+      "strokeColor": "#9c36b5",
+      "text": "Application core (Python)",
+      "fontSize": 14,
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "extraction",
+      "type": "rectangle",
+      "x": 80,
+      "y": 385,
+      "width": 260,
+      "height": 155,
+      "backgroundColor": "#d0bfff",
+      "strokeColor": "#7048e8",
+      "roughness": 0,
+      "label": {
+        "text": "extraction.py\nPyMuPDF → text\nBAML → Resume / JobPosting"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "embeddings-mod",
+      "type": "rectangle",
+      "x": 420,
+      "y": 385,
+      "width": 260,
+      "height": 155,
+      "backgroundColor": "#d0bfff",
+      "strokeColor": "#7048e8",
+      "roughness": 0,
+      "label": {
+        "text": "embeddings.py\nChunk + pool\n(vs. indexed pipeline)"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "search-mod",
+      "type": "rectangle",
+      "x": 760,
+      "y": 385,
+      "width": 260,
+      "height": 155,
+      "backgroundColor": "#d0bfff",
+      "strokeColor": "#7048e8",
+      "roughness": 0,
+      "label": {
+        "text": "search.py\nQdrantClient\nfilters: kind, domain, pooling"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "zone-infra",
+      "type": "rectangle",
+      "x": 40,
+      "y": 640,
+      "width": 1120,
+      "height": 220,
+      "backgroundColor": "#ffd8a8",
+      "strokeColor": "#e8590c",
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 25,
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp3av7jakvqb",
+      "type": "text",
+      "x": 60,
+      "y": 652,
+      "strokeColor": "#e8590c",
+      "text": "Local services (llama.cpp / stack)",
+      "fontSize": 14,
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "llm-srv",
+      "type": "rectangle",
+      "x": 100,
+      "y": 710,
+      "width": 260,
+      "height": 125,
+      "backgroundColor": "#e599f7",
+      "strokeColor": "#9c36b5",
+      "roughness": 0,
+      "label": {
+        "text": "Inference\nphi-4-mini (BAML)\n:8080"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "embed-api",
+      "type": "rectangle",
+      "x": 470,
+      "y": 710,
+      "width": 260,
+      "height": 125,
+      "backgroundColor": "#e599f7",
+      "strokeColor": "#9c36b5",
+      "roughness": 0,
+      "label": {
+        "text": "Embeddings HTTP\nmxbai-embed-large\n:8081 /v1/embeddings"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "qdrant",
+      "type": "rectangle",
+      "x": 840,
+      "y": 710,
+      "width": 260,
+      "height": 125,
+      "backgroundColor": "#99e9f2",
+      "strokeColor": "#0c8599",
+      "roughness": 0,
+      "label": {
+        "text": "Qdrant\n:6333\nCollection: resume-job-posting-poolings"
+      },
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "zone-offline",
+      "type": "rectangle",
+      "x": 40,
+      "y": 900,
+      "width": 1120,
+      "height": 180,
+      "backgroundColor": "#e9ecef",
+      "strokeColor": "#868e96",
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 40,
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp9pl9aty1tl",
+      "type": "text",
+      "x": 60,
+      "y": 912,
+      "strokeColor": "#868e96",
+      "text": "Offline data path (notebooks)",
+      "fontSize": 14,
+      "createdAt": "2026-05-09T14:16:52.353Z",
+      "updatedAt": "2026-05-09T14:16:52.353Z",
+      "version": 1
+    },
+    {
+      "id": "notebooks",
+      "type": "rectangle",
+      "x": 120,
+      "y": 960,
+      "width": 420,
+      "height": 100,
+      "backgroundColor": "#ffec99",
+      "strokeColor": "#f08c00",
+      "roughness": 0,
+      "label": {
+        "text": "Jupyter notebooks\npreprocess · embed_processed_json_to_qdrant\n→ same chunking/pooling as query time"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpmcu4eummnl8",
+      "type": "arrow",
+      "x": 308,
+      "y": 190,
+      "strokeColor": "#1971c2",
+      "label": {
+        "text": "HTTP"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          144,
+          2.842170943040401e-14
+        ]
+      ],
+      "start": {
+        "id": "user"
+      },
+      "end": {
+        "id": "dash-app"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp6gsvvwc9vp8",
+      "type": "arrow",
+      "x": 507.9755892433281,
+      "y": 259.50412982798275,
+      "strokeColor": "#7048e8",
+      "label": {
+        "text": "PDF → extract"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -177.6025546334452,
+          120.9917403440345
+        ]
+      ],
+      "start": {
+        "id": "dash-app"
+      },
+      "end": {
+        "id": "extraction"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpp1wbqb06nrn",
+      "type": "arrow",
+      "x": 348,
+      "y": 462.5,
+      "strokeColor": "#7048e8",
+      "label": {
+        "text": "payload_to_text"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          64,
+          0
+        ]
+      ],
+      "start": {
+        "id": "extraction"
+      },
+      "end": {
+        "id": "embeddings-mod"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpbc7wo26dak",
+      "type": "arrow",
+      "x": 688,
+      "y": 462.5,
+      "strokeColor": "#7048e8",
+      "label": {
+        "text": "query vector"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          64,
+          0
+        ]
+      ],
+      "start": {
+        "id": "embeddings-mod"
+      },
+      "end": {
+        "id": "search-mod"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp2cf5l8aj1sx",
+      "type": "arrow",
+      "x": 911.9990241521741,
+      "y": 547.7462185896749,
+      "strokeColor": "#0c8599",
+      "label": {
+        "text": "vector search + filters"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          39.87291943758726,
+          154.50756282065026
+        ]
+      ],
+      "start": {
+        "id": "search-mod"
+      },
+      "end": {
+        "id": "qdrant"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpv3wlbj2bwp",
+      "type": "arrow",
+      "x": 215.51505822398371,
+      "y": 547.9834024717477,
+      "strokeColor": "#9c36b5",
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "BAML / LLM"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          9.937625487516442,
+          154.0331950565046
+        ]
+      ],
+      "start": {
+        "id": "extraction"
+      },
+      "end": {
+        "id": "llm-srv"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcpai5qvefx6js",
+      "type": "arrow",
+      "x": 563.7738595105969,
+      "y": 547.8979289657012,
+      "strokeColor": "#9c36b5",
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "POST embeddings"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          24.871635817515767,
+          154.20414206859755
+        ]
+      ],
+      "start": {
+        "id": "embeddings-mod"
+      },
+      "end": {
+        "id": "embed-api"
+      },
+      "createdAt": "2026-05-09T14:16:52.354Z",
+      "updatedAt": "2026-05-09T14:16:52.354Z",
+      "version": 1
+    },
+    {
+      "id": "moyfgrcp1k8zqsl1sc8",
+      "type": "arrow",
+      "x": 472.2370636208377,
+      "y": 957.2167146719547,
+      "strokeColor": "#f08c00",
+      "strokeStyle": "dotted",
+      "label": {
+        "text": "index / upsert"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          360.2627148635877,
+          -133.69124184390944
+        ]
+      ],
+      "start": {
+        "id": "notebooks"
+      },
+      "end": {
+        "id": "qdrant"
+      },
+      "createdAt": "2026-05-09T14:16:52.355Z",
+      "updatedAt": "2026-05-09T14:16:52.355Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}
